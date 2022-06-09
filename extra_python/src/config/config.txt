@@ -1,0 +1,8 @@
+[JAVA]
+classpath=<GIT_HOME>/extra/extra_java/javalib/*:<GIT_HOME/extra/extra_java/target/classes
+jython_path=<JYTHON_HOME>/bin/jython
+
+[TOKENIZATION]
+split_identifiers=true
+split_strings=true
+exclude_list=["@"]

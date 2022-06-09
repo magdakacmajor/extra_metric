@@ -1,0 +1,264 @@
+{
+   "abstract_parent_count": 343,
+   "corpus_size": 9541,
+   "multipunct_threshold": 5,
+   "name": "nowy_spsf_pt5",
+   "parsed_size": 1937,
+   "punct_stats": {
+      "!": {
+         "after": 3,
+         "before": 3,
+         "both": 0,
+         "none": 95,
+         "total": 101
+      },
+      "\"": {
+         "after": 166,
+         "before": 0,
+         "both": 0,
+         "none": 779,
+         "total": 945
+      },
+      "#": {
+         "after": 2,
+         "before": 4,
+         "both": 2,
+         "none": 120,
+         "total": 124
+      },
+      "$": {
+         "after": 0,
+         "before": 16,
+         "both": 0,
+         "none": 249,
+         "total": 265
+      },
+      "%": {
+         "after": 7,
+         "before": 25,
+         "both": 7,
+         "none": 157,
+         "total": 182
+      },
+      "&": {
+         "after": 32,
+         "before": 32,
+         "both": 16,
+         "none": 41,
+         "total": 89
+      },
+      "'": {
+         "after": 172,
+         "before": 239,
+         "both": 7,
+         "none": 606,
+         "total": 1010
+      },
+      "(": {
+         "after": 4,
+         "before": 39,
+         "both": 1,
+         "none": 460,
+         "total": 502
+      },
+      ")": {
+         "after": 111,
+         "before": 4,
+         "both": 0,
+         "none": 400,
+         "total": 515
+      },
+      "*": {
+         "after": 108,
+         "before": 125,
+         "both": 76,
+         "none": 334,
+         "total": 491
+      },
+      "+": {
+         "after": 22,
+         "before": 20,
+         "both": 20,
+         "none": 71,
+         "total": 93
+      },
+      ",": {
+         "after": 294,
+         "before": 11,
+         "both": 8,
+         "none": 308,
+         "total": 605
+      },
+      "-": {
+         "after": 12,
+         "before": 37,
+         "both": 12,
+         "none": 1242,
+         "total": 1279
+      },
+      ".": {
+         "after": 15,
+         "before": 1,
+         "both": 0,
+         "none": 2873,
+         "total": 2889
+      },
+      "/": {
+         "after": 9,
+         "before": 20,
+         "both": 7,
+         "none": 3947,
+         "total": 3969
+      },
+      ":": {
+         "after": 167,
+         "before": 18,
+         "both": 7,
+         "none": 940,
+         "total": 1118
+      },
+      ";": {
+         "after": 89,
+         "before": 4,
+         "both": 3,
+         "none": 85,
+         "total": 175
+      },
+      "<": {
+         "after": 12,
+         "before": 24,
+         "both": 12,
+         "none": 335,
+         "total": 359
+      },
+      "=": {
+         "after": 83,
+         "before": 73,
+         "both": 40,
+         "none": 677,
+         "total": 793
+      },
+      ">": {
+         "after": 34,
+         "before": 37,
+         "both": 10,
+         "none": 319,
+         "total": 380
+      },
+      "?": {
+         "after": 11,
+         "before": 24,
+         "both": 9,
+         "none": 206,
+         "total": 232
+      },
+      "@": {
+         "after": 0,
+         "before": 95,
+         "both": 0,
+         "none": 84,
+         "total": 179
+      },
+      "[": {
+         "after": 1,
+         "before": 74,
+         "both": 0,
+         "none": 309,
+         "total": 384
+      },
+      "\\": {
+         "after": 0,
+         "before": 105,
+         "both": 0,
+         "none": 1261,
+         "total": 1366
+      },
+      "]": {
+         "after": 50,
+         "before": 1,
+         "both": 0,
+         "none": 333,
+         "total": 384
+      },
+      "^": {
+         "after": 3,
+         "before": 3,
+         "both": 3,
+         "none": 17,
+         "total": 20
+      },
+      "_": {
+         "after": 0,
+         "before": 0,
+         "both": 0,
+         "none": 226,
+         "total": 226
+      },
+      "`": {
+         "after": 0,
+         "before": 0,
+         "both": 0,
+         "none": 2,
+         "total": 2
+      },
+      "{": {
+         "after": 3,
+         "before": 21,
+         "both": 3,
+         "none": 391,
+         "total": 412
+      },
+      "|": {
+         "after": 10,
+         "before": 8,
+         "both": 6,
+         "none": 1,
+         "total": 13
+      },
+      "}": {
+         "after": 12,
+         "before": 4,
+         "both": 0,
+         "none": 393,
+         "total": 409
+      },
+      "~": {
+         "after": 0,
+         "before": 0,
+         "both": 0,
+         "none": 1,
+         "total": 1
+      }
+   },
+   "random_seed": 133,
+   "rejected_counts": {
+      "meaningless_name": 0,
+      "parametrised_tc": 53,
+      "src_seq_len": 33,
+      "tgt_seq_len": 7109,
+      "token_len": 0,
+      "total": 7170
+   },
+   "size_bounds": [
+      5,
+      150,
+      5,
+      150
+   ],
+   "string_stats": {
+      "all_multipunct_strings": 473,
+      "all_multitoken_strings": 6752,
+      "all_punct_strings": 5709,
+      "all_strings": 15029,
+      "has_multipunct_string": 395,
+      "has_multitoken_string": 4105,
+      "has_punct_string": 3524,
+      "has_string": 6536
+   },
+   "test_size": 0.1,
+   "testset_size": 955,
+   "trainset_size": 8586,
+   "uuid": "73f6e07b-1051-4fe0-a35f-49fdb3673c7e",
+   "vocab_nl_size": 2396,
+   "vocab_pl_size": 5625
+}

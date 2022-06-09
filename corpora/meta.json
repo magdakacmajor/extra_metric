@@ -1,0 +1,28 @@
+{
+   "exclude_list": [
+      "@"
+   ],
+   "non_duplicates": null,
+   "parsed_data": "/klonhome/shared/data/eval_traces/nowy_spsf_pt5",
+   "random_seed": 133,
+   "repo": "/klonhome/shared/data/git",
+   "size_bounds": [
+      5,
+      150,
+      5,
+      150
+   ],
+   "split_identifiers": true,
+   "split_strings": true,
+   "test_size": 0.1,
+   "total_abstract_parents": 343,
+   "total_rejected": {
+      "meaningless_name": 0,
+      "parametrised_tc": 53,
+      "src_seq_len": 33,
+      "tgt_seq_len": 7109,
+      "token_len": 0,
+      "total": 7170
+   },
+   "uuid": "7420f17a-bb9c-4d0b-8c94-db1b265b570c"
+}
