@@ -37,11 +37,11 @@ def main():
 
     corpus_pl = read_file(f'{corpora}/corpus.pl')
     corpus_ids = read_file(f'{corpora}/corpus.ids')
-    dev_pl = read_file(f'{corpora}/dev.pl')
+    test_pl = read_file(f'{corpora}/test.pl')
 
-    dev_ln = [corpus_pl.index(x) for x in dev_pl]
-    dev_ids = [corpus_ids[x] for x in dev_ln]
-    tracking_info_list = [dev_id.rstrip().split(",") for dev_id in dev_ids]
+    test_ln = [corpus_pl.index(x) for x in test_pl]
+    test_ids = [corpus_ids[x] for x in test_ln]
+    tracking_info_list = [test_id.rstrip().split(",") for test_id in test_ids]
 
     if cfg.map_full_corpus:
         tracking_info_list = [ci.rstrip().split(",") for ci in corpus_ids]
@@ -86,7 +86,7 @@ def main():
         json.dump(project_mappings, f)
 
 #     with open (os.path.join(working_dir, 'nowy-dev.ids'), 'w') as f:
-#         f.writelines(dev_ids)
+#         f.writelines(test_ids)
 
 
 if __name__ == '__main__':

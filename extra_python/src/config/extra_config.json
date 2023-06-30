@@ -1,0 +1,15 @@
+{
+   "mappings_path": "",
+   "subprojectToSkip": "spring-projects_spring-framework/spring-test",
+   "lib_path":"src/extra/lib/google-java-format-1.7-all-deps.jar",
+   "gt_path": "",
+   "gen_path": "",
+   "log_path": "",
+   "fixed_dir":"",
+   "substitution_dir": "",
+   "out_path": "",
+   "dev_pl": "",
+   "generated_dev_pl": "",
+   "lang": "java",
+   "revert_sem_split": true
+}

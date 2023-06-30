@@ -14,6 +14,8 @@ from CodeBLEU import syntax_match
 from CodeBLEU import dataflow_match
 import Levenshtein as Leven
 
+from types import SimpleNamespace
+
 excluded=[
 		  'ConcurrentReferenceHashMap',
 		  'org.apache.commons'
@@ -164,20 +166,8 @@ def main():
 	
 	with open(sys.argv[1]) as f:
 		meta=json.load(f)
-
-	mappings_path = meta["mappings_path"]
-	subprojectToSkip = meta["subprojectToSkip"]
-	lib_path = meta["lib_path"]
-	gt_path = meta["gt_path"]
-	gen_path = meta["gen_path"]
-	log_path = meta["log_path"]
-	fixed_dir = meta["fixed_dir"]
-	substitution_dir = meta["substitution_dir"]
-	out_path = meta["out_path"]
-	dev_pl = meta["dev_pl"]
-	generated_dev_pl = meta["generated_dev_pl"]
-	lang = meta["lang"]
-	revert_sem_split = meta["revert_sem_split"]
+		
+	cfg = SimpleNamespace(**meta)
 	
 	status='status'	
 	data={'meta':meta,
@@ -185,16 +175,16 @@ def main():
 		  'missing':[]}
 
 	
-	nonstandard_ids = get_nonstandard_ids(log_path)
+	nonstandard_ids = get_nonstandard_ids(cfg.log_path)
 	print(nonstandard_ids)
  # print(get_nonstandard_ids('/klonhome/shared/data/apr_neweval/nowy-spsf/plus-gen/console.log'))
 	nonstandard_ids_map = {int(x.split('_')[0]):x for x in nonstandard_ids}
-	(mappings, revmap) = get_reverse_map(mappings_path)
+	(mappings, revmap) = get_reverse_map(cfg.mappings_path)
 	
-	with open(dev_pl) as f:
+	with open(cfg.dev_pl) as f:
 		gt_lines=[x.strip() for x in f.readlines()]
 		
-	with open(generated_dev_pl) as f:
+	with open(cfg.generated_dev_pl) as f:
 		gen_lines=[x.strip() for x in f.readlines()]
 		
 	def get_template():
@@ -208,11 +198,11 @@ def main():
 		fullname=tc["testcase_fullname"]
 		tc_id=revmap[fullname]
 
-		if (not tc["executable"]) or subprojectToSkip in tc['filepath'] or "@Disabled" in tc["annotations"]:
+		if (not tc["executable"]) or cfg.subprojectToSkip in tc['filepath'] or "@Disabled" in tc["annotations"]:
 			data['skipped'].append(tc_id)
 			continue
 
-		(gt_testcase, gen_testcase) = compare_traces(gt_path, gen_path, fullname)
+		(gt_testcase, gen_testcase) = compare_traces(cfg.gt_path, cfg.gen_path, fullname)
 		if gen_testcase is None:
 			data['missing'].append(tc_id)
 # 			print(f'{tc_id},{fullname},missing')
@@ -231,8 +221,8 @@ def main():
 		
 		cosine_sim = np.dot(gt_testcase[status], gen_testcase[status]) / (np.linalg.norm(gt_testcase[status]) * np.linalg.norm(gen_testcase[status]))
 		
-		gt_line = revert_semantic_split(gt_lines[tc_id]) if revert_sem_split else gt_lines[tc_id]
-		gen_line = revert_semantic_split(gen_lines[tc_id]) if revert_sem_split else gen_lines[tc_id]
+		gt_line = revert_semantic_split(gt_lines[tc_id]) if cfg.revert_sem_split else gt_lines[tc_id]
+		gen_line = revert_semantic_split(gen_lines[tc_id]) if cfg.revert_sem_split else gen_lines[tc_id]
 		
 		references = [gt_line.split()]
 		hypothesis = gen_line.split()
@@ -244,7 +234,7 @@ def main():
 			print("************", bleu, bleu2, ngram_match_score, '************')
 			bleu = ngram_match_score
 		# calculate weighted ngram match
-		keywords = [x.strip() for x in open(f'{cb_path}/keywords/'+lang+'.txt', 'r', encoding='utf-8').readlines()]
+		keywords = [x.strip() for x in open(f'{cb_path}/keywords/{cfg.lang}.txt', 'r', encoding='utf-8').readlines()]
 		def make_weights(reference_tokens, key_word_list):
 		    return {token:1 if token in key_word_list else 0.2 for token in reference_tokens}
 		   
@@ -255,14 +245,14 @@ def main():
 # 		meteor = nltk.translate.meteor_score.single_meteor_score(gt_line, gen_line)
 		
 		gen_filename=f'{tc_id}_0.java' if not nonstandard_ids_map.get(tc_id, None) else nonstandard_ids_map[tc_id]
-		clean_gt, clean_gen = compare_source_code(tc, f'{substitution_dir}/{gen_filename}', lib_path)
+		clean_gt, clean_gen = compare_source_code(tc, f'{cfg.substitution_dir}/{gen_filename}', cfg.lib_path)
 		dist_gt_gen = levenshtein(clean_gt, clean_gen)
 		lev_ratio = Leven.ratio(clean_gen, clean_gt)
 
 		# calculate syntax match
-		syntax_match_score = syntax_match.corpus_syntax_match( [[clean_gt]], [clean_gen], lang)
+		syntax_match_score = syntax_match.corpus_syntax_match( [[clean_gt]], [clean_gen], cfg.lang)
 		# calculate dataflow match
-		dataflow_match_score = dataflow_match.corpus_dataflow_match( [[clean_gt]], [clean_gen], lang)
+		dataflow_match_score = dataflow_match.corpus_dataflow_match( [[clean_gt]], [clean_gen], cfg.lang)
 			
 # 		print('ngram match: {0}, weighted ngram match: {1}, syntax_match: {2}, dataflow_match: {3}'.\
 # 		                    format(ngram_match_score, weighted_ngram_match_score, syntax_match_score, dataflow_match_score))
@@ -284,8 +274,8 @@ def main():
 			                + gamma*syntax_match_score
 		
 		dist_fixed_gen, dist_gt_fixed = np.nan, np.nan
-		if fixed_dir:
-			clean_fixed, clean_gen2 = compare_source_code(f'{fixed_dir}/{gen_filename}', f'{substitution_dir}/{gen_filename}', lib_path) if fixed_dir else np.nan
+		if cfg.fixed_dir:
+			clean_fixed, clean_gen2 = compare_source_code(f'{cfg.fixed_dir}/{gen_filename}', f'{cfg.substitution_dir}/{gen_filename}', cfg.lib_path) if cfg.fixed_dir else np.nan
 			dist_fixed_gen = levenshtein(clean_fixed, clean_gen2)
 			dist_gt_fixed = levenshtein(clean_gt, clean_fixed)
 		
@@ -303,7 +293,7 @@ def main():
 	data['gen_data']=gen_data
 	data['metrics']=metrics
 		
-	with open(out_path, 'wb') as f:
+	with open(cfg.out_path, 'wb') as f:
 		pickle.dump(data,f)
 		
 		
