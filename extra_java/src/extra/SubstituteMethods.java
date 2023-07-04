@@ -75,7 +75,7 @@ public class SubstituteMethods {
 			if(!pm.isExecutable()) {
 				continue;
 			}
-			Path classFile = Paths.get(pm.getFilepath().replace("/klonhome", "/ExtraSpace/nowy/centos_home/backups/klontos_bak/home"));
+			Path classFile = Paths.get(pm.getFilepath());
 			String methodName = pm.getMethodName();
 			String ancestorName = pm.getAncestorClassName() == null? pm.getClassName() : pm.getAncestorClassName();
 			CompilationUnit cu = JavaParser.parse(classFile);

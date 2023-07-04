@@ -262,7 +262,7 @@ public final class DetailedReports{
 				System.out.println(cmd);
 				failed.add(i);
 				
-				Path classFile = Paths.get(pm.getFilepath().replace("/klonhome", "/ExtraSpace/nowy/centos_home/backups/klontos_bak/home"));
+				Path classFile = Paths.get(pm.getFilepath());
 				MethodDeclaration method = null;
 				String[] fnames;
 				int attempts;
